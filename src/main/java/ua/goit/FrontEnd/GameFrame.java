@@ -14,40 +14,47 @@ import java.util.Objects;
 public class GameFrame extends JFrame implements ActionListener {
     private JButton makeMoveButton;
     private JTextField cityTextField;
+    private JLabel answerLabel;
     private String answer;
 
     public GameFrame() {
 
-        //Set makeMoveButton
+        // Set makeMoveButton
         makeMoveButton = new JButton("Зробити хід");
         makeMoveButton.addActionListener(this);
+        makeMoveButton.setPreferredSize(new Dimension(150, 40));
 
-        //Set cityTextField
+        // Set cityTextField
         cityTextField = new JTextField();
+        cityTextField.setPreferredSize(new Dimension(200, 30));
 
-        //Set makeMoveLabel
+
+        // Set makeMoveLabel
         JLabel makeMoveLabel = new JLabel("Введіть назву міста");
         makeMoveLabel.setForeground(new Color(0xFFFFFF));
 
         //Set answerLabel
-        JLabel answerLabel = new JLabel("Комп'ютер: " + answer);
+        answerLabel = new JLabel("Комп'ютер: " + answer);
         answerLabel.setForeground(new Color(0xFFFFFF));
 
 
-        //Set and setting using setLayout
+        // Set and setting using setLayout
         this.setTitle("Міста");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(400, 500);
+        this.setSize(500, 400);
         this.setResizable(true);
-        this.setLayout(new GridLayout(2, 2));
+        this.setLayout(new GridLayout(2, 2, 20, 20));
 
-        //Set button which starts the game
+        // Center the frame on the screen
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(
                 dim.width/2-this.getSize().width/2,
                 dim.height/2-this.getSize().height/2
         );
+        // Set the background color
         this.getContentPane().setBackground(new Color(0x373737));
+
+        // Add components to the panel
         this.add(cityTextField);
         this.add(makeMoveLabel);
         this.add(makeMoveButton);
@@ -58,7 +65,10 @@ public class GameFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == makeMoveButton) {
-            if (Objects.equals(cityTextField.getText(), "Сдаюсь")) {
+            boolean loseBoolean1 = Objects.equals(cityTextField.getText(), "Сдаюсь");
+            boolean loseBoolean2 = Objects.equals(cityTextField.getText(), "Здаюсь");
+
+            if (loseBoolean1 || loseBoolean2) {
                 System.out.println("Непогана спроба, проте ти програв. " +
                         "Але не слід сумувати, наступного разу ти точно виграєш)))");
                 this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
