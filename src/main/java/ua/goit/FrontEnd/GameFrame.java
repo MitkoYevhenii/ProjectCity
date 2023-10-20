@@ -1,23 +1,28 @@
 package ua.goit.FrontEnd;
 
 import lombok.*;
+import ua.goit.BackEnd.DataGame;
+import ua.goit.BackEnd.Player;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.Map;
 import java.util.Objects;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class GameFrame extends JFrame implements ActionListener {
+    private final static GameFrame gameFrame = new GameFrame();
     private JButton makeMoveButton;
     private JTextField cityTextField;
     private JLabel answerLabel;
     private String answer;
+    private DataGame game = DataGame.getInstance();
 
-    public GameFrame() {
+    private GameFrame() {
 
         // Set makeMoveButton
         makeMoveButton = new JButton("Зробити хід");
@@ -61,18 +66,27 @@ public class GameFrame extends JFrame implements ActionListener {
         this.add(answerLabel);
     }
 
+    public static GameFrame getInstance() {
+        return gameFrame;
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == makeMoveButton) {
-            boolean loseBoolean1 = Objects.equals(cityTextField.getText(), "Сдаюсь");
-            boolean loseBoolean2 = Objects.equals(cityTextField.getText(), "Здаюсь");
+            boolean loseBoolean = cityTextField.getText().equalsIgnoreCase("сдаюсь")
+                    || cityTextField.getText().equalsIgnoreCase("здаюсь");
 
-            if (loseBoolean1 || loseBoolean2) {
-                System.out.println("Непогана спроба, проте ти програв. " +
-                        "Але не слід сумувати, наступного разу ти точно виграєш)))");
-                this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+            if (loseBoolean) {
+                EndFrame endFrame = new EndFrame();
+                setVisible(false);
+                endFrame.setVisible(true);
+            } else if (game.getScore() == 0) {
+                Player.firstTurn(cityTextField.getText().toUpperCase(), game);
+            } else {
+                Player.turn(cityTextField.getText().toUpperCase(), game);
             }
+            answerLabel.setText("Комп'ютер: " + answer);
         }
     }
 }

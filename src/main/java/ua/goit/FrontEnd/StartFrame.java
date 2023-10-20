@@ -12,8 +12,9 @@ import java.awt.event.ActionListener;
 @Data
 public class StartFrame extends JFrame implements ActionListener {
     private final JButton button;
+    private final static StartFrame startFrame = new StartFrame();
 
-    public StartFrame() {
+    private StartFrame() {
 
         //Set introductory text
         JLabel label = new JLabel("Вітаємо вас у грі дитинства і всіх розумників!");
@@ -52,11 +53,14 @@ public class StartFrame extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    public static StartFrame getInstance() {
+        return startFrame;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
-            System.out.println("You pressed the button");
-            GameFrame gameFrame = new GameFrame();
+            GameFrame gameFrame = GameFrame.getInstance();
             setVisible(false);
             gameFrame.setVisible(true);
         }
