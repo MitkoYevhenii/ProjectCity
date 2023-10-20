@@ -1,28 +1,35 @@
 package ua.goit.FrontEnd;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoseFrame extends JFrame implements ActionListener {
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class EndFrame extends JFrame implements ActionListener {
     private final JButton restartButton;
     private final JButton exitButton;
+    private JLabel label;
+    private boolean resultGame;
 
-    public LoseFrame() {
+    public EndFrame() {
         // Set introductory text
-        JLabel label = new JLabel("Ви програли, але не переживайте, наступного разу пощастить");
+        if (resultGame) {
+            label = new JLabel("Ви програли, хочете спробувати ще раз?");
+        } else {
+            label = new JLabel("Ви вийграли, хочете спробувати ще раз?");
+        }
         label.setBounds(50, 20, 300, 50);
         label.setForeground(Color.WHITE);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setFont(new Font("Arial", Font.PLAIN, 16));
 
         // Set button which restarts the game
-        restartButton = new JButton("Спробувати ще раз!");
+        restartButton = new JButton("Restart!");
         restartButton.setBounds(70, 100, 150, 50);
         restartButton.addActionListener(this);
         restartButton.setBackground(new Color(0x2E7D32));
@@ -30,7 +37,7 @@ public class LoseFrame extends JFrame implements ActionListener {
         restartButton.setFont(new Font("Arial", Font.BOLD, 14));
 
         // Set button which exits the game
-        exitButton = new JButton("Вийти з гри");
+        exitButton = new JButton("Exit");
         exitButton.setBounds(220, 100, 150, 50);
         exitButton.addActionListener(this);
         exitButton.setBackground(new Color(0xD32F2F));
@@ -60,11 +67,5 @@ public class LoseFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // Handle button actions here
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new LoseFrame();
-        });
     }
 }
