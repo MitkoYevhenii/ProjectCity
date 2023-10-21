@@ -27,4 +27,19 @@ public class ComputerLogic {
         }
         return "finish";
     }
+
+    public static String findNextCity(String lastSymbol, HashMap<String, Boolean> cities) {
+//        System.out.println("Комп'ютер шукає слово, яке починається на " + lastSymbol);
+        for (Map.Entry<String, Boolean> entry : cities.entrySet()) {
+            if (!entry.getValue()) {
+                String city = entry.getKey();
+                if (city.startsWith(lastSymbol)) {
+                    cities.put(city, true);
+//                    System.out.println("Місто комп'ютера: " + city);
+                    return city;
+                }
+            }
+        }
+        return "finish";
+    }
 }

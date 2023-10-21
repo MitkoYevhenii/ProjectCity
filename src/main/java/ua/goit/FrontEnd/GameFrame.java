@@ -16,9 +16,9 @@ import java.util.Objects;
 @Data
 public class GameFrame extends JFrame implements ActionListener {
     private final static GameFrame gameFrame = new GameFrame();
-    private JButton makeMoveButton;
-    private JTextField cityTextField;
-    private JLabel answerLabel;
+    private final JButton makeMoveButton;
+    private final JTextField cityTextField;
+    private final JLabel answerLabel;
     private String answer;
     private DataGame game = DataGame.getInstance();
 
@@ -73,6 +73,7 @@ public class GameFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() == makeMoveButton) {
             boolean loseBoolean = cityTextField.getText().equalsIgnoreCase("сдаюсь")
                     || cityTextField.getText().equalsIgnoreCase("здаюсь");
@@ -82,9 +83,9 @@ public class GameFrame extends JFrame implements ActionListener {
                 setVisible(false);
                 endFrame.setVisible(true);
             } else if (game.getScore() == 0) {
-                Player.firstTurn(cityTextField.getText().toUpperCase(), game);
+                answer = Player.firstTurn(cityTextField.getText().toUpperCase(), game);
             } else {
-                Player.turn(cityTextField.getText().toUpperCase(), game);
+                answer = Player.turn(cityTextField.getText().toUpperCase(), game);
             }
             answerLabel.setText("Комп'ютер: " + answer);
         }

@@ -1,6 +1,9 @@
 package ua.goit.BackEnd;
 
+import lombok.Getter;
+
 import java.util.HashMap;
+import java.util.Map;
 
 /*
 Загальний клас-одинак Singleton для зберігання даних гри
@@ -8,8 +11,11 @@ import java.util.HashMap;
 
 public class DataGame {
     private static final DataGame dataGame = new DataGame();
+    @Getter
     private int score;
+    @Getter
     private HashMap<String, Boolean> cities;
+    @Getter
     private String lastSymbol;
     private boolean isFinish;
 
@@ -25,24 +31,12 @@ public class DataGame {
         return dataGame;
     }
 
-    public int getScore() {
-        return score;
-    }
-
     public void setScore(int score) {
         this.score = score;
     }
 
-    public HashMap<String, Boolean> getCities() {
-        return cities;
-    }
-
     public void setCities(HashMap<String, Boolean> cities) {
         this.cities = cities;
-    }
-
-    public String getLastSymbol() {
-        return lastSymbol;
     }
 
     public void setLastSymbol(String lastSymbol) {
