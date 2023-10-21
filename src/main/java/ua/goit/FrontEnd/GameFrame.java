@@ -82,6 +82,10 @@ public class GameFrame extends JFrame implements ActionListener {
                 EndFrame endFrame = new EndFrame();
                 setVisible(false);
                 endFrame.setVisible(true);
+            } else if (game.getLastSymbol().equals("finish")) {
+                EndFrame endFrame = new EndFrame();
+                setVisible(false);
+                endFrame.setVisible(true);
             } else if (game.getScore() == 0) {
                 answer = Player.firstTurn(cityTextField.getText().toUpperCase(), game);
             } else {

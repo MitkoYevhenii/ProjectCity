@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class EndFrame extends JFrame implements ActionListener {
+    private static  EndFrame endFrame;
     private final JButton restartButton;
     private final JButton exitButton;
     private JLabel label;
@@ -62,6 +63,10 @@ public class EndFrame extends JFrame implements ActionListener {
         this.add(restartButton);
         this.add(exitButton);
         this.setVisible(true);
+    }
+
+    public static EndFrame getInstance(boolean resultGame) {
+        return endFrame;
     }
 
     @Override
