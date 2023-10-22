@@ -8,16 +8,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class EndFrame extends JFrame implements ActionListener {
-    private static  EndFrame endFrame;
+    private static EndFrame endFrame;
     private final JButton restartButton;
     private final JButton exitButton;
     private JLabel label;
+    private boolean isWin;
 
     public EndFrame(boolean isWin) {
+        this.isWin = isWin;
+
         // Set introductory text
         if (isWin) {
             label = new JLabel("Ви виграли, хочете спробувати ще раз?");
@@ -69,12 +73,38 @@ public class EndFrame extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    public static EndFrame getInstance(boolean resultGame) {
+    public static EndFrame getInstance(boolean isWin) {
+        if (endFrame == null) {
+            endFrame = new EndFrame(isWin);
+        } else {
+            endFrame.isWin = isWin;
+            endFrame.updateLabels();
+        }
+
+        endFrame.isWin = isWin;
         return endFrame;
+    }
+
+    private void updateLabels() {
+        if (isWin) {
+            label.setText("Ви виграли, хочете спробувати ще раз?");
+            label.setForeground(Color.GREEN);
+        } else {
+            label.setText("Ви програли, хочете спробувати ще раз?");
+            label.setForeground(Color.RED);
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // Handle button actions here
+        if (e.getSource() == restartButton) {
+            GameFrame gameFrame = GameFrame.getInstanceAgain();
+            this.dispose();
+            gameFrame.setVisible(true);
+        }
+
+        if (e.getSource() == exitButton) {
+            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        }
     }
 }

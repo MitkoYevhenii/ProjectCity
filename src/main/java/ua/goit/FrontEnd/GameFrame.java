@@ -13,11 +13,11 @@ import java.awt.event.ActionListener;
 @Data
 public class GameFrame extends JFrame implements ActionListener {
     private final static GameFrame gameFrame = new GameFrame();
+    private final static DataGame game = DataGame.getInstance();
     private final JButton makeMoveButton;
-    private final JTextField cityTextField;
-    private final JLabel answerLabel;
+    private static JTextField cityTextField;
+    private static JLabel answerLabel;
     private String answer;
-    private DataGame game = DataGame.getInstance();
 
     private GameFrame() {
 
@@ -37,6 +37,10 @@ public class GameFrame extends JFrame implements ActionListener {
         //Set answerLabel
         answerLabel = new JLabel("Комп'ютер очікує вводу першого слова");
         answerLabel.setForeground(new Color(0xFFFFFF));
+
+        //Set icon icon
+        ImageIcon icon = new ImageIcon("src/main/java/ua/goit/Resources/logo.png");
+        this.setIconImage(icon.getImage());
 
         // Set and setting using setLayout
         this.setTitle("Міста");
@@ -65,6 +69,14 @@ public class GameFrame extends JFrame implements ActionListener {
         return gameFrame;
     }
 
+    public static GameFrame getInstanceAgain() {
+        answerLabel.setText("Комп'ютер очікує вводу першого слова");
+        cityTextField.setText("");
+        game.reset();
+        return gameFrame;
+    }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -75,11 +87,12 @@ public class GameFrame extends JFrame implements ActionListener {
             if (enteredWord.equals("СДАЮСЬ") || enteredWord.equals("ЗДАЮСЬ") || game.getLastSymbol().equals("finish")) {
                 boolean isWinner = game.getLastSymbol().equals("finish");
 
-                EndFrame endFrame = new EndFrame(isWinner);
-                setVisible(false);
+                EndFrame endFrame = EndFrame.getInstance(isWinner);
+                this.dispose();
                 endFrame.setVisible(true);
-                return;
+
             }
+
             answer = Player.playerTurn(enteredWord, game);
             answerLabel.setText("Комп'ютер: " + answer);
         }

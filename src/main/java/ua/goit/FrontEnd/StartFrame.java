@@ -54,14 +54,15 @@ public class StartFrame extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    public static void getInstance() {
+    public static StartFrame getInstance() {
+        return startFrame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
             GameFrame gameFrame = GameFrame.getInstance();
-            setVisible(false);
+            this.dispose();
             gameFrame.setVisible(true);
         }
     }

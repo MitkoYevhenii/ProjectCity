@@ -44,4 +44,11 @@ public class DataGame {
             lastSymbol = word.substring(word.length() - 1);
         }
     }
+
+    public void reset() {
+        cities.replaceAll((key, value) -> false);
+        score = 0;
+        isFinish = false;
+        lastSymbol = "";
+    }
 }
