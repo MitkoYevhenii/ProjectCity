@@ -1,6 +1,8 @@
 package ua.goit.BackEnd;
 
+import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +17,8 @@ public class DataGame {
     private int score;
     @Getter
     private final Map<String, Boolean> cities;
+    @Getter @Setter
+    private boolean isFinish = false;
     @Getter
     private String lastSymbol;
 

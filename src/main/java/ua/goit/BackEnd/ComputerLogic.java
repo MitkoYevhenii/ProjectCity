@@ -23,8 +23,11 @@ public class ComputerLogic {
                 .map(Map.Entry::getKey)
                 .toList();
 
-        if (filteredCities.isEmpty())
-            return "finish";
+        if (filteredCities.isEmpty()) {
+            DataGame.getInstance().setFinish(true);
+            return "Гравець виграв, кінець гри";
+        }
+
 
         int size = filteredCities.size();
         long seed = System.currentTimeMillis();

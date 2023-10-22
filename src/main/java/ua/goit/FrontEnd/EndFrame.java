@@ -2,6 +2,7 @@ package ua.goit.FrontEnd;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import ua.goit.BackEnd.DataGame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,12 +20,13 @@ public class EndFrame extends JFrame implements ActionListener {
     public EndFrame(boolean isWin) {
         // Set introductory text
         if (isWin) {
-            label = new JLabel("Ви вийграли, хочете спробувати ще раз?");
+            label = new JLabel("Ви виграли, хочете спробувати ще раз?");
+            label.setForeground(Color.GREEN);
         } else {
             label = new JLabel("Ви програли, хочете спробувати ще раз?");
+            label.setForeground(Color.RED);
         }
         label.setBounds(50, 20, 300, 50);
-        label.setForeground(Color.WHITE);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setFont(new Font("Arial", Font.PLAIN, 16));
 

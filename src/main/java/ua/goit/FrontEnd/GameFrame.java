@@ -32,7 +32,8 @@ public class GameFrame extends JFrame implements ActionListener {
 
         // Set makeMoveLabel
         JLabel makeMoveLabel = new JLabel("Введіть назву міста");
-        makeMoveLabel.setForeground(new Color(0xFFFFFF));
+        makeMoveLabel.setForeground(Color.CYAN);
+//        makeMoveLabel.setForeground(new Color(0xFFFFFF));
 
         //Set answerLabel
         answerLabel = new JLabel("Комп'ютер очікує вводу першого слова");
@@ -67,20 +68,16 @@ public class GameFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (e.getSource() == makeMoveButton) {
             String enteredWord = cityTextField.getText().toUpperCase();
-
+            cityTextField.setText("");
             //if already lose or win
-            if (enteredWord.equals("СДАЮСЬ") || enteredWord.equals("ЗДАЮСЬ") || game.getLastSymbol().equals("finish")) {
-                boolean isWinner = game.getLastSymbol().equals("finish");
-
-                EndFrame endFrame = new EndFrame(isWinner);
+            answer = Player.playerTurn(enteredWord, game);
+            if (enteredWord.equals("СДАЮСЬ") || enteredWord.equals("ЗДАЮСЬ") || game.isFinish()) {
+                EndFrame endFrame = new EndFrame(game.isFinish());
                 setVisible(false);
                 endFrame.setVisible(true);
-                return;
             }
-            answer = Player.playerTurn(enteredWord, game);
             answerLabel.setText("Комп'ютер: " + answer);
         }
     }
