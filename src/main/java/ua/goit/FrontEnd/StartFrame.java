@@ -11,8 +11,9 @@ import java.awt.event.ActionListener;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class StartFrame extends JFrame implements ActionListener {
-    private final JButton button;
+
     private final static StartFrame startFrame = new StartFrame();
+    private final JButton button;
 
     private StartFrame() {
 
@@ -21,7 +22,7 @@ public class StartFrame extends JFrame implements ActionListener {
         label.setBounds(50, 50, 300, 50);
         label.setForeground(new Color(0xFFFFFF));
 
-        //Set button which starts the game
+        //Set button which starts the gameProcess
         button = new JButton("ОК!");
         button.setBounds(150, 100, 100, 50);
         button.addActionListener(this);
@@ -31,7 +32,7 @@ public class StartFrame extends JFrame implements ActionListener {
         button.setForeground(Color.WHITE);
 
         //Set icon icon
-        ImageIcon icon = new ImageIcon("src/main/java/ua/goit/FrontEnd/logo.png");
+        ImageIcon icon = new ImageIcon("src/main/java/ua/goit/Resources/logo.png");
         this.setIconImage(icon.getImage());
 
         //Set and setting Frame
@@ -53,8 +54,7 @@ public class StartFrame extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
-    public static StartFrame getInstance() {
-        return startFrame;
+    public static void getInstance() {
     }
 
     @Override

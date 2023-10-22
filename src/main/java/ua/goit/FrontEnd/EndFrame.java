@@ -30,7 +30,7 @@ public class EndFrame extends JFrame implements ActionListener {
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setFont(new Font("Arial", Font.PLAIN, 16));
 
-        // Set button which restarts the game
+        // Set button which restarts the gameProcess
         restartButton = new JButton("Restart!");
         restartButton.setBounds(70, 100, 150, 50);
         restartButton.addActionListener(this);
@@ -38,13 +38,16 @@ public class EndFrame extends JFrame implements ActionListener {
         restartButton.setForeground(Color.WHITE);
         restartButton.setFont(new Font("Arial", Font.BOLD, 14));
 
-        // Set button which exits the game
+        // Set button which exits the gameProcess
         exitButton = new JButton("Exit");
         exitButton.setBounds(220, 100, 150, 50);
         exitButton.addActionListener(this);
         exitButton.setBackground(new Color(0xD32F2F));
         exitButton.setForeground(Color.WHITE);
         exitButton.setFont(new Font("Arial", Font.BOLD, 14));
+
+        ImageIcon icon = new ImageIcon("src/main/java/ua/goit/Resources/logo.png");
+        this.setIconImage(icon.getImage());
 
         // Set and setting Frame
         this.setTitle("Ви програли");
