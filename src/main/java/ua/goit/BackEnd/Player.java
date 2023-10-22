@@ -7,9 +7,8 @@ firstTurn - перший хід
 turn - інші ходи
 */
 
-
 public class Player {
-    public static String turn(String city, DataGame dataGame) {
+    public static String playerTurn(String city, DataGame dataGame) {
         if (dataGame.getScore() != 0 && !city.startsWith(dataGame.getLastSymbol())) {
             return "Введіть інше місто, яке почнинається на " + dataGame.getLastSymbol();
         }
@@ -18,25 +17,15 @@ public class Player {
             return "Це місто вже було використане";
         }
 
-        return commonTurn(city, dataGame);
-    }
-
-    public static String firstTurn(String city, DataGame dataGame) {
-        return commonTurn(city, dataGame);
-    }
-
-    private static String commonTurn(String city, DataGame dataGame) {
         if (dataGame.getCities().containsKey(city)) {
             dataGame.getCities().put(city, true);
             dataGame.increaseScore();
-            dataGame.setLastSymbol(ComputerLogic.turn(city.substring(city.length() - 1), dataGame.getCities()));
-            String newCity = ComputerLogic.findNextCity(city.substring(city.length() - 1), dataGame.getCities());
+            dataGame.verifyWordAndSetLastSymbol(city);
 
-            return newCity;
+            String compAnswer = ComputerLogic.compTurn();
+            dataGame.verifyWordAndSetLastSymbol(compAnswer);
+            return compAnswer;
         }
-
-        else {
-            return "Такого міста не існує, спробуйте ще раз";
-        }
+        return "Такого міста не існує, спробуйте ще раз";
     }
 }

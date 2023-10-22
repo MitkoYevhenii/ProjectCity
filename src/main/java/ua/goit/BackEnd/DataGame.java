@@ -14,44 +14,30 @@ public class DataGame {
     @Getter
     private int score;
     @Getter
-    private HashMap<String, Boolean> cities;
+    private final Map<String, Boolean> cities;
     @Getter
     private String lastSymbol;
-    private boolean isFinish;
 
     private DataGame() {
         score = 0;
         cities = new HashMap<>();
         lastSymbol = "";
-        isFinish = false;
-        FileLoader.loadFile("src/main/java/ua/goit/Resurces/cities.txt", cities);
+        FileLoader.loadFile("src/main/java/ua/goit/Resources/cities.txt", cities);
     }
 
     public static DataGame getInstance() {
         return dataGame;
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public void setCities(HashMap<String, Boolean> cities) {
-        this.cities = cities;
-    }
-
-    public void setLastSymbol(String lastSymbol) {
-        this.lastSymbol = lastSymbol;
-    }
-
     public void increaseScore() {
         score++;
     }
 
-    public boolean isFinish() {
-        return isFinish;
-    }
-
-    public void setFinish(boolean finish) {
-        isFinish = finish;
+    public void verifyWordAndSetLastSymbol(String word) {
+        if (word.endsWith("Ь") || word.endsWith("Ї") || word.endsWith("И") || word.endsWith("Ц")) {
+            lastSymbol = word.substring(word.length() - 2, word.length() - 1);
+        } else {
+            lastSymbol = word.substring(word.length() - 1);
+        }
     }
 }

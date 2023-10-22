@@ -3,10 +3,10 @@ package ua.goit.BackEnd;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Map;
 
 public class FileLoader {
-    public static void loadFile(String path, HashMap<String, Boolean> cities) {
+    public static void loadFile(String path, Map<String, Boolean> cities) {
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
             String line;
             while((line = reader.readLine()) != null) {

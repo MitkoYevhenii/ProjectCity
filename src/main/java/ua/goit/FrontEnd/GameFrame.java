@@ -8,9 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.util.Map;
-import java.util.Objects;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -31,22 +28,20 @@ public class GameFrame extends JFrame implements ActionListener {
 
         // Set cityTextField
         cityTextField = new JTextField();
-        cityTextField.setPreferredSize(new Dimension(200, 30));
-
+        cityTextField.setPreferredSize(new Dimension(250, 30));
 
         // Set makeMoveLabel
         JLabel makeMoveLabel = new JLabel("Введіть назву міста");
         makeMoveLabel.setForeground(new Color(0xFFFFFF));
 
         //Set answerLabel
-        answerLabel = new JLabel("Комп'ютер: " + answer);
+        answerLabel = new JLabel("Комп'ютер очікує вводу першого слова");
         answerLabel.setForeground(new Color(0xFFFFFF));
-
 
         // Set and setting using setLayout
         this.setTitle("Міста");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(500, 400);
+        this.setSize(600, 400);
         this.setResizable(true);
         this.setLayout(new GridLayout(2, 2, 20, 20));
 
@@ -70,27 +65,22 @@ public class GameFrame extends JFrame implements ActionListener {
         return gameFrame;
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == makeMoveButton) {
-            boolean loseBoolean = cityTextField.getText().equalsIgnoreCase("сдаюсь")
-                    || cityTextField.getText().equalsIgnoreCase("здаюсь");
+            String enteredWord = cityTextField.getText().toUpperCase();
 
-            if (loseBoolean) {
-                EndFrame endFrame = new EndFrame();
+            //if already lose or win
+            if (enteredWord.equals("СДАЮСЬ") || enteredWord.equals("ЗДАЮСЬ") || game.getLastSymbol().equals("finish")) {
+                boolean isWinner = game.getLastSymbol().equals("finish");
+
+                EndFrame endFrame = new EndFrame(isWinner);
                 setVisible(false);
                 endFrame.setVisible(true);
-            } else if (game.getLastSymbol().equals("finish")) {
-                EndFrame endFrame = new EndFrame();
-                setVisible(false);
-                endFrame.setVisible(true);
-            } else if (game.getScore() == 0) {
-                answer = Player.firstTurn(cityTextField.getText().toUpperCase(), game);
-            } else {
-                answer = Player.turn(cityTextField.getText().toUpperCase(), game);
+                return;
             }
+            answer = Player.playerTurn(enteredWord, game);
             answerLabel.setText("Комп'ютер: " + answer);
         }
     }

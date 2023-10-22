@@ -15,14 +15,13 @@ public class EndFrame extends JFrame implements ActionListener {
     private final JButton restartButton;
     private final JButton exitButton;
     private JLabel label;
-    private boolean resultGame;
 
-    public EndFrame() {
+    public EndFrame(boolean isWin) {
         // Set introductory text
-        if (resultGame) {
-            label = new JLabel("Ви програли, хочете спробувати ще раз?");
-        } else {
+        if (isWin) {
             label = new JLabel("Ви вийграли, хочете спробувати ще раз?");
+        } else {
+            label = new JLabel("Ви програли, хочете спробувати ще раз?");
         }
         label.setBounds(50, 20, 300, 50);
         label.setForeground(Color.WHITE);

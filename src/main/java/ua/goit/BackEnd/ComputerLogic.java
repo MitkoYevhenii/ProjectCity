@@ -2,44 +2,38 @@ package ua.goit.BackEnd;
 
 import ua.goit.FrontEnd.GameFrame;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /*
 Цей клас відповідає за логіку гри комп'ютера
-Містить метод turn, тобто хід комп'ютера
+Містить метод compTurn, тобто хід комп'ютера
 */
 
 public class ComputerLogic {
-    public static String turn(String lastSymbol, HashMap<String, Boolean> cities) {
+    public static String compTurn() {
+        Map<String, Boolean> cities = DataGame.getInstance().getCities();
+        String lastSymbol = DataGame.getInstance().getLastSymbol();
         System.out.println("Комп'ютер шукає слово яке починається на " + lastSymbol);
-        for(Map.Entry<String, Boolean> entry : cities.entrySet()) {
-            if(!entry.getValue()) {
-                String city = entry.getKey();
-                if(city.startsWith(lastSymbol)) {
-                    cities.put(city, true);
-                    GameFrame.getInstance().setAnswer(city);
-                    if(city.endsWith("И") || city.endsWith("Ь"))
-                        return city.substring(city.length() - 2, city.length() - 1);
-                    return city.substring(city.length() - 1);
-                }
-            }
-        }
-        return "finish";
-    }
 
-    public static String findNextCity(String lastSymbol, HashMap<String, Boolean> cities) {
-//        System.out.println("Комп'ютер шукає слово, яке починається на " + lastSymbol);
-        for (Map.Entry<String, Boolean> entry : cities.entrySet()) {
-            if (!entry.getValue()) {
-                String city = entry.getKey();
-                if (city.startsWith(lastSymbol)) {
-                    cities.put(city, true);
-//                    System.out.println("Місто комп'ютера: " + city);
-                    return city;
-                }
-            }
-        }
-        return "finish";
+        List<String> filteredCities = cities.entrySet()
+                .stream()
+                .filter(entry -> entry.getKey().startsWith(lastSymbol) && !entry.getValue())
+                .map(Map.Entry::getKey)
+                .toList();
+
+        if (filteredCities.isEmpty())
+            return "finish";
+
+        int size = filteredCities.size();
+        long seed = System.currentTimeMillis();
+        Random random = new Random(seed);
+        int randomIndex = random.nextInt(size);
+
+        String chosenCity = filteredCities.get(randomIndex);
+        cities.put(chosenCity, true);
+        GameFrame.getInstance().setAnswer(chosenCity);
+        return chosenCity;
     }
 }
