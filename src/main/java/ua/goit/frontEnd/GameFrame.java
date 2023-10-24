@@ -1,8 +1,8 @@
-package ua.goit.FrontEnd;
+package ua.goit.frontEnd;
 
 import lombok.*;
-import ua.goit.BackEnd.DataGame;
-import ua.goit.BackEnd.Player;
+import ua.goit.backEnd.DataGame;
+import ua.goit.backEnd.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,30 +14,34 @@ import java.awt.event.ActionListener;
 public class GameFrame extends JFrame implements ActionListener {
     private final static GameFrame gameFrame = new GameFrame();
     private final static DataGame game = DataGame.getInstance();
-    private final JButton makeMoveButton;
+    private JButton makeMoveButton;
     private static JTextField cityTextField;
+    private JLabel makeMoveLabel;
     private static JLabel answerLabel;
     private String answer;
 
+    public static GameFrame getInstance() {
+        return gameFrame;
+    }
+
+    public static GameFrame getInstanceAgain() {
+        answerLabel.setText("Комп'ютер очікує вводу першого слова");
+        cityTextField.setText("");
+        game.reset();
+        return gameFrame;
+    }
+
     private GameFrame() {
+        setupFrame();
+        setupCityTextField();      // Initialize cityTextField
+        setupMakeMoveLabel();      // Initialize makeMoveLabel
+        setupMakeMoveButton();     // Initialize makeMoveButton
+        setupAnswerLabel();        // Initialize answerLabel
+        setupComponents();         // Add the components to the frame
+        setVisible(true);
+    }
 
-        // Set makeMoveButton
-        makeMoveButton = new JButton("Зробити хід");
-        makeMoveButton.addActionListener(this);
-        makeMoveButton.setPreferredSize(new Dimension(150, 40));
-
-        // Set cityTextField
-        cityTextField = new JTextField();
-        cityTextField.setPreferredSize(new Dimension(250, 30));
-
-        // Set makeMoveLabel
-        JLabel makeMoveLabel = new JLabel("Введіть назву міста");
-        makeMoveLabel.setForeground(new Color(0xFFFFFF));
-
-        //Set answerLabel
-        answerLabel = new JLabel("Комп'ютер очікує вводу першого слова");
-        answerLabel.setForeground(new Color(0xFFFFFF));
-
+    private void setupFrame() {
         //Set icon icon
         ImageIcon icon = new ImageIcon("src/main/java/ua/goit/Resources/logo.png");
         this.setIconImage(icon.getImage());
@@ -57,23 +61,34 @@ public class GameFrame extends JFrame implements ActionListener {
         );
         // Set the background color
         this.getContentPane().setBackground(new Color(0x373737));
+    }
 
-        // Add components to the panel
+    private void setupComponents() {
         this.add(cityTextField);
         this.add(makeMoveLabel);
         this.add(makeMoveButton);
         this.add(answerLabel);
     }
 
-    public static GameFrame getInstance() {
-        return gameFrame;
+    private void setupMakeMoveButton() {
+        makeMoveButton = new JButton("Зробити хід");
+        makeMoveButton.addActionListener(this);
+        makeMoveButton.setPreferredSize(new Dimension(150, 40));
     }
 
-    public static GameFrame getInstanceAgain() {
-        answerLabel.setText("Комп'ютер очікує вводу першого слова");
-        cityTextField.setText("");
-        game.reset();
-        return gameFrame;
+    private void setupCityTextField() {
+        cityTextField = new JTextField();
+        cityTextField.setPreferredSize(new Dimension(250, 30));
+    }
+
+    private void setupMakeMoveLabel() {
+        makeMoveLabel = new JLabel("Введіть назву міста");
+        makeMoveLabel.setForeground(new Color(0xFFFFFF));
+    }
+
+    private void setupAnswerLabel(){
+        answerLabel = new JLabel("Комп'ютер очікує вводу першого слова");
+        answerLabel.setForeground(new Color(0xFFFFFF));
     }
 
 

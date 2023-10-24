@@ -1,6 +1,6 @@
-package ua.goit.BackEnd;
+package ua.goit.backEnd;
 
-import ua.goit.FrontEnd.GameFrame;
+import ua.goit.frontEnd.GameFrame;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,6 @@ public class ComputerLogic {
     public static String compTurn() {
         Map<String, Boolean> cities = DataGame.getInstance().getCities();
         String lastSymbol = DataGame.getInstance().getLastSymbol();
-        System.out.println("Комп'ютер шукає слово яке починається на " + lastSymbol);
 
         List<String> filteredCities = cities.entrySet()
                 .stream()

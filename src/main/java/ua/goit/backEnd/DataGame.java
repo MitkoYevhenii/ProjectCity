@@ -1,6 +1,5 @@
-package ua.goit.BackEnd;
+package ua.goit.backEnd;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,12 +20,13 @@ public class DataGame {
     private boolean isFinish = false;
     @Getter
     private String lastSymbol;
+    private static final String path = "src/main/java/ua/goit/Resources/cities.txt";
 
     private DataGame() {
         score = 0;
         cities = new HashMap<>();
         lastSymbol = "";
-        FileLoader.loadFile("src/main/java/ua/goit/Resources/cities.txt", cities);
+        FileLoader.loadFile(path, cities);
     }
 
     public static DataGame getInstance() {

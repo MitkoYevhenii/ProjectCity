@@ -1,4 +1,4 @@
-package ua.goit.BackEnd;
+package ua.goit.backEnd;
 
 /*
 Цей клас відповідає за логіку гри користувача
