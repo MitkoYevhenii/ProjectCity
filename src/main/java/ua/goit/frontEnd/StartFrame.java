@@ -15,6 +15,7 @@ public class StartFrame extends JFrame implements ActionListener {
     private final static StartFrame startFrame = new StartFrame();
     private JButton okButton;
     private JLabel introductoryLabel;
+    private String picturePath = "src/main/java/ua/goit/Resources/logo.png";
 
     public static void getInstance() {}
 
@@ -34,7 +35,7 @@ public class StartFrame extends JFrame implements ActionListener {
         this.setSize(400, 250);
         this.getContentPane().setBackground(new Color(0x373737));
 
-        ImageIcon icon = new ImageIcon("src/main/java/ua/goit/Resources/logo.png");
+        ImageIcon icon = new ImageIcon(picturePath);
         this.setIconImage(icon.getImage());
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

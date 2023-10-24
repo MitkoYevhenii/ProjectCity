@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 public class GameFrame extends JFrame implements ActionListener {
     private final static GameFrame gameFrame = new GameFrame();
     private final static DataGame game = DataGame.getInstance();
+    private String picturePath = "src/main/java/ua/goit/Resources/logo.png";
     private JButton makeMoveButton;
     private static JTextField cityTextField;
     private JLabel makeMoveLabel;
@@ -43,7 +44,7 @@ public class GameFrame extends JFrame implements ActionListener {
 
     private void setupFrame() {
         //Set icon icon
-        ImageIcon icon = new ImageIcon("src/main/java/ua/goit/Resources/logo.png");
+        ImageIcon icon = new ImageIcon(picturePath);
         this.setIconImage(icon.getImage());
 
         // Set and setting using setLayout

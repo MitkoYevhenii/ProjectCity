@@ -17,6 +17,8 @@ public class EndFrame extends JFrame implements ActionListener {
     private JButton exitButton;
     private JLabel finalGameLabel;
     private boolean isWin;
+    private String picturePath = "src/main/java/ua/goit/Resources/logo.png";
+
 
     private EndFrame(boolean isWin) {
         this.isWin = isWin;
@@ -31,7 +33,7 @@ public class EndFrame extends JFrame implements ActionListener {
     }
 
     private void setupFrame() {
-        ImageIcon icon = new ImageIcon("src/main/java/ua/goit/Resources/logo.png");
+        ImageIcon icon = new ImageIcon(picturePath);
         this.setIconImage(icon.getImage());
 
         // Set and setting Frame
