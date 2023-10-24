@@ -100,7 +100,7 @@ public class GameFrame extends JFrame implements ActionListener {
             String enteredWord = cityTextField.getText().toUpperCase();
 
             //if already lose or win
-            if (enteredWord.equals("СДАЮСЬ") || enteredWord.equals("ЗДАЮСЬ") || game.getLastSymbol().equals("finish")) {
+            if (enteredWord.equals("СДАЮСЬ") || enteredWord.equals("ЗДАЮСЬ") || game.isFinish()) {
                 boolean isWinner = game.getLastSymbol().equals("finish");
 
                 EndFrame endFrame = EndFrame.getInstance(isWinner);

@@ -13,29 +13,31 @@ import java.util.Random;
 
 public class ComputerLogic {
     public static String compTurn() {
-        Map<String, Boolean> cities = DataGame.getInstance().getCities();
-        String lastSymbol = DataGame.getInstance().getLastSymbol();
-
-        List<String> filteredCities = cities.entrySet()
-                .stream()
-                .filter(entry -> entry.getKey().startsWith(lastSymbol) && !entry.getValue())
-                .map(Map.Entry::getKey)
-                .toList();
-
+        List<String> filteredCities = getFilteredCitiesList();
         if (filteredCities.isEmpty()) {
             DataGame.getInstance().setFinish(true);
             return "Гравець виграв, кінець гри";
         }
 
-
-        int size = filteredCities.size();
-        long seed = System.currentTimeMillis();
-        Random random = new Random(seed);
-        int randomIndex = random.nextInt(size);
-
+        int randomIndex = generateRandomIndex(filteredCities.size());
         String chosenCity = filteredCities.get(randomIndex);
-        cities.put(chosenCity, true);
+        DataGame.getInstance().getCities().put(chosenCity, true);
         GameFrame.getInstance().setAnswer(chosenCity);
         return chosenCity;
+    }
+
+    private static List<String> getFilteredCitiesList() {
+        DataGame dataGame = DataGame.getInstance();
+
+        return dataGame.getCities().entrySet()
+                .stream()
+                .filter(entry -> entry.getKey().startsWith(dataGame.getLastSymbol()) && !entry.getValue())
+                .map(Map.Entry::getKey)
+                .toList();
+    }
+
+    private static int generateRandomIndex(int size) {
+        Random random = new Random(System.currentTimeMillis());
+        return random.nextInt(size);
     }
 }
