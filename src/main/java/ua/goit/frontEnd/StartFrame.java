@@ -13,13 +13,15 @@ import java.awt.event.ActionListener;
 public class StartFrame extends JFrame implements ActionListener {
 
     private final static StartFrame startFrame = new StartFrame();
-    private final JButton okButton = setupOkButton();
-    private final JLabel introductoryLabel = setupIntroductoryLabel();
+    private JButton okButton;
+    private JLabel introductoryLabel;
 
     public static void getInstance() {}
 
     private StartFrame() {
         setupFrame();
+        setupOkButton();
+        setupIntroductoryLabel();
         setupComponents();
         this.setVisible(true);
     }
@@ -45,22 +47,20 @@ public class StartFrame extends JFrame implements ActionListener {
         this.add(okButton);
     }
 
-    private static JLabel setupIntroductoryLabel() {
-        JLabel label = new JLabel("Вітаємо вас у грі дитинства і всіх розумників!");
-        label.setBounds(50, 50, 300, 50);
-        label.setForeground(new Color(0xFFFFFF));
-        return label;
+    private void setupIntroductoryLabel() {
+        introductoryLabel = new JLabel("Вітаємо вас у грі дитинства і всіх розумників!");
+        introductoryLabel.setBounds(50, 50, 300, 50);
+        introductoryLabel.setForeground(new Color(0xFFFFFF));
     }
 
-    private JButton setupOkButton() {
-        JButton button = new JButton("ОК!");
-        button.setBounds(150, 100, 100, 50);
-        button.addActionListener(this);
-        button.setBackground(new Color(11, 11, 11));
-        button.setBorderPainted(false);
-        button.setFocusPainted(false);
-        button.setForeground(Color.WHITE);
-        return button;
+    private void setupOkButton() {
+        okButton = new JButton("ОК!");
+        okButton.setBounds(150, 100, 100, 50);
+        okButton.addActionListener(this);
+        okButton.setBackground(new Color(11, 11, 11));
+        okButton.setBorderPainted(false);
+        okButton.setFocusPainted(false);
+        okButton.setForeground(Color.WHITE);
     }
 
     @Override
