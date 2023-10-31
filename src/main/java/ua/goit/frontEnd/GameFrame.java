@@ -26,7 +26,7 @@ public class GameFrame extends JFrame implements ActionListener {
     }
 
     public static GameFrame getInstanceAgain() {
-        answerLabel.setText("Комп'ютер очікує вводу першого слова");
+        answerLabel.setText("<html>" + "Комп'ютер очікує вводу першого слова" + "</html>");
         cityTextField.setText("");
         game.reset();
         return gameFrame;
@@ -34,15 +34,16 @@ public class GameFrame extends JFrame implements ActionListener {
 
     private GameFrame() {
         setupFrame();
-        setupCityTextField();      // Initialize cityTextField
-        setupMakeMoveLabel();      // Initialize makeMoveLabel
-        setupMakeMoveButton();     // Initialize makeMoveButton
-        setupAnswerLabel();        // Initialize answerLabel
-        setupComponents();         // Add the components to the frame
+        setupCityTextField();
+        setupMakeMoveLabel();
+        setupMakeMoveButton();
+        setupAnswerLabel();
+        setupComponents();
         setVisible(true);
     }
 
     private void setupFrame() {
+
         //Set icon icon
         ImageIcon icon = new ImageIcon(picturePath);
         this.setIconImage(icon.getImage());
@@ -50,9 +51,9 @@ public class GameFrame extends JFrame implements ActionListener {
         // Set and setting using setLayout
         this.setTitle("Міста");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(600, 400);
-        this.setResizable(true);
-        this.setLayout(new GridLayout(2, 2, 20, 20));
+        this.setSize(600, 150);
+        this.setResizable(false);
+        this.setLayout(new GridLayout(2, 2, 10, 5));
 
         // Center the frame on the screen
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -73,14 +74,27 @@ public class GameFrame extends JFrame implements ActionListener {
 
     private void setupMakeMoveButton() {
         makeMoveButton = new JButton("Зробити хід");
+        makeMoveButton.setBackground(new Color(51, 153, 255)); // Например, синий цвет
+        makeMoveButton.setForeground(Color.WHITE); // Белый цвет
+        makeMoveButton.setFont(new Font("Arial", Font.BOLD, 16)); // Пример шрифта
+        makeMoveButton.setMargin(new Insets(10, 20, 10, 20));
         makeMoveButton.addActionListener(this);
-        makeMoveButton.setPreferredSize(new Dimension(150, 40));
+        Dimension maxButtonSize = new Dimension(150, Integer.MAX_VALUE); // Установите максимальную ширину
+        makeMoveButton.setMaximumSize(maxButtonSize);
     }
+
 
     private void setupCityTextField() {
         cityTextField = new JTextField();
-        cityTextField.setPreferredSize(new Dimension(250, 30));
+        cityTextField.setBackground(new Color(240, 240, 240)); // Например, светло-серый цвет
+        cityTextField.setForeground(Color.BLACK); // Черный цвет
+        cityTextField.setFont(new Font("Arial", Font.PLAIN, 14)); // Пример шрифта и размера
+        cityTextField.setMargin(new Insets(5, 5, 5, 5));
+        cityTextField.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1)); // Серая рамка
+        Dimension maxTextFieldSize = new Dimension(250, Integer.MAX_VALUE); // Установите максимальную ширину
+        cityTextField.setMaximumSize(maxTextFieldSize);
     }
+
 
     private void setupMakeMoveLabel() {
         makeMoveLabel = new JLabel("Введіть назву міста");
@@ -88,7 +102,7 @@ public class GameFrame extends JFrame implements ActionListener {
     }
 
     private void setupAnswerLabel(){
-        answerLabel = new JLabel("Комп'ютер очікує вводу першого слова");
+        answerLabel = new JLabel("<html>" + "Комп'ютер очікує вводу першого слова"  + "</html>");
         answerLabel.setForeground(new Color(0xFFFFFF));
     }
 
@@ -110,7 +124,7 @@ public class GameFrame extends JFrame implements ActionListener {
             }
 
             answer = Player.playerTurn(enteredWord, game);
-            answerLabel.setText("Комп'ютер: " + answer);
+            answerLabel.setText("<html>" + "Комп'ютер: " + answer + "</html>");
         }
     }
 }

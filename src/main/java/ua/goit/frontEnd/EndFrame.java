@@ -97,6 +97,7 @@ public class EndFrame extends JFrame implements ActionListener {
         restartButton.setBackground(new Color(0x2E7D32));
         restartButton.setForeground(Color.WHITE);
         restartButton.setFont(new Font("Arial", Font.BOLD, 14));
+        restartButton.setFocusable(false);
     }
 
     private void setupExitButton() {
@@ -106,6 +107,7 @@ public class EndFrame extends JFrame implements ActionListener {
         exitButton.setBackground(new Color(0xD32F2F));
         exitButton.setForeground(Color.WHITE);
         exitButton.setFont(new Font("Arial", Font.BOLD, 14));
+        exitButton.setFocusable(false);
     }
 
     private void setupLabelFinalGame() {

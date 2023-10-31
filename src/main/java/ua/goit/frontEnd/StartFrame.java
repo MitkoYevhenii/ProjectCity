@@ -59,7 +59,6 @@ public class StartFrame extends JFrame implements ActionListener {
         okButton.setBounds(150, 100, 100, 50);
         okButton.addActionListener(this);
         okButton.setBackground(new Color(11, 11, 11));
-        okButton.setBorderPainted(false);
         okButton.setFocusPainted(false);
         okButton.setForeground(Color.WHITE);
     }
